@@ -1,0 +1,84 @@
+Namespace: Controllers\Auth
+
+Dependencies:
+
+Models\User
+Support\Auth
+Support\DB
+Support\Request
+Functions:
+
+login()
+
+Description: Authenticates a user based on their email and password.
+Implementation:
+Retrieves the email and password from the POST request.
+Uses the Auth::login method to authenticate the user.
+Redirects to /home on successful login.
+Redirects to /login?error=invalid_credentials if authentication fails
+[6/30/2024 11:16 AM] Mohamed Osman: profileUpdate()
+
+Description: Updates the profile information of the authenticated user.
+Implementation:
+Retrieves the request instance.
+Extracts name, email, phone, and password from the request.
+Gets the authenticated user using Auth::user.
+Hashes the new password if provided, otherwise retains the current password.
+Updates the user information in the database using User::update.
+Redirects to /profile?success=profile_updated
+ public function profileUpdate() {
+$req = Request::getInstance();
+$name = $req->name;
+$email = $req->email;
+$phone = $req->phone;
+$password = $req->password;
+$user = Auth::user();
+if ($password != null) {
+$password = password_hash($password, PASSWORD_DEFAULT);
+} else {
+$password = $user->password;
+}
+User::update($user->id, ['name' => $name, 'email' => $email, 'phone' => $phone, 'password' => $password]);
+header("Location: /profile?success=profile_updated");
+}
+[6/30/2024 11:16 AM] Mohamed Osman: logout()
+
+Description: Logs out the authenticated user.
+Implementation:
+Calls Auth::logout to log out the user.
+Redirects to the login page (/login).
+[6/30/2024 11:17 AM] Mohamed Osman: public function logout() {
+Auth::logout();
+header("Location: /login");
+}
+
+
+Description: Registers a new user.
+Implementation:
+Retrieves the request instance.
+Extracts firstName, lastName, email, password, passwordConfirmation, phone, and account_type from the request.
+Sanitizes and validates the input data.
+Checks if the password and password confirmation match.
+Uses Auth::register to create a new user.
+Redirects to the login page (/login) on successful registration.
+Redirects to /register?error=password_mismatch if the password confirmation fails.
+[6/30/2024 11:17 AM] Mohamed Osman: public function register() {
+$req = Request::getInstance();
+$name = sanitize_input($req->firstName .' '. $req->lastName);
+$email = validate_email($req->email);
+$password = sanitize_input($req->password);
+$password_confirmation = sanitize_input($req->passwordConfirmation);
+$phone = sanitize_input($req->phone);
+$accountType = sanitize_input($req->account_type);
+if(!passwordConfirmation($password, $password_confirmation)) header("Location: /register?error=password_mismatch");
+
+if (Auth::register($email, $password, $name, $phone, $accountType) == 1) {
+header("Location: /login", true);
+}
+}
+
+
+login(): Use to authenticate users and redirect them to the appropriate page based on the success of the authentication.
+profileUpdate(): Use to update the authenticated user's profile details.
+logout(): Use to log out the authenticated user.
+register(): Use to create a new user account.

@@ -1,0 +1,221 @@
+##  Documentation
+### API
+### Imports
+- `Models\User`: The User model for interacting with user data.
+- `Support\Router`: The Router for handling HTTP requests.
+
+### Data
+- `$data` (array): An associative array containing user data.
+  - `name`: The user's name (e.g., 'John Doe').
+  - `email`: The user's email (e.g., 'test@gmail.com').
+  - `password`: The user's password (e.g., 'password').
+
+- `$jsonData` (string): JSON-encoded version of `$data`.
+
+### Routes
+- `Router::get('/user', function () {...})`: Defines a GET route for '/user'.
+  - The callback function fetches all users and returns the data in JSON format.
+
+### Example Usage
+
+```php
+use Models\User;
+use Support\Router;
+
+$data = [
+    'name' => 'John Doe',
+    'email' => 'test@gmail.com',
+    'password' => 'password'
+];
+
+$jsonData = json_encode($data);
+
+Router::get('/user', function () {
+    echo json(User::all());
+});
+```
+
+### Notes
+- Ensure the `User` model and `Router` class are properly imported.
+- The route `/user` will return all users in JSON format when accessed.
+
+### Conclusion
+This script demonstrates how to define a GET route using the `Router` class to return user data in JSON format, and how to encode an associative array into a JSON string.
+
+
+
+## Routing Script Documentation
+### Auth
+### Description
+This script sets up the routing for an application, including authentication and profile views.
+
+### Imports
+- `Support\Router`: Handles routing.
+- `Controllers\Auth\AuthController`: Manages authentication logic.
+
+### Routes
+
+#### GET Routes
+- `/login`: Renders the login view.
+  ```php
+  Router::get('/login', fn () => view('auth/login'));
+  ```
+- `/register`: Renders the registration view.
+  ```php
+  Router::get('/register', fn () => view('auth/register'));
+  ```
+- `/logout`: Logs out the user.
+  ```php
+  Router::get('/logout', [AuthController::class, 'logout']);
+  ```
+- `/profile`: Renders the user profile view.
+  ```php
+  Router::get('/profile', fn() => view('auth/profile'));
+  ```
+
+#### POST Routes
+- `/login`: Handles user login.
+  ```php
+  Router::post('/login', [AuthController::class, 'login']);
+  ```
+- `/register`: Handles user registration.
+  ```php
+  Router::post('/register', [AuthController::class, 'register']);
+  ```
+
+### Additional Files
+- `require_once(__DIR__.'/../Support/autoload.php')`: Loads necessary support files.
+- `require_once __DIR__.'/api.php'`: Includes additional API routes.
+
+### Example Usage
+
+```php
+require_once(__DIR__.'/../Support/autoload.php');
+
+use Support\Router;
+use Controllers\Auth\AuthController;
+
+Router::get('/login', fn () => view('auth/login'));
+Router::get('/register', fn () => view('auth/register'));
+
+Router::post('/login', [AuthController::class, 'login']);
+Router::post('/register', [AuthController::class, 'register']);
+Router::get('/logout', [AuthController::class, 'logout']);
+Router::get('/profile', fn() => view('auth/profile'));
+
+require_once __DIR__.'/api.php';
+```
+
+### Notes
+- Ensure that `autoload.php` and `api.php` files are correctly placed in their respective directories.
+- The `AuthController` class should have methods `login`, `register`, and `logout`.
+
+### Conclusion
+This script defines routes for user authentication and profile viewing, leveraging the `Router` class and `AuthController` methods.
+
+======
+## Routing Script Documentation
+
+### Description
+This script sets up routes for user management, job postings, and comments.
+
+### Imports
+- `Support\Router`: Handles routing.
+- `Support\Request`: Manages HTTP requests.
+- `Controllers\UsersController`
+- `Controllers\JobsController`
+- `Controllers\CommentsController`
+
+### Routes
+
+#### View Routes
+- `/`: Home view
+- `/dashboard`: Dashboard view
+- `/team`: Team view
+- `/home`: Home view
+- `/status`: Status view (200)
+
+```php
+Router::view('/', 'home');
+Router::view('/dashboard', 'dashboard');
+Router::view('/team', 'team');
+Router::view('/home', 'home');
+Router::view('/status', '200');
+```
+
+#### User Routes
+- `/users`: List users
+  ```php
+  Router::get('/users', [UsersController::class, 'index']);
+  ```
+
+#### Job Routes
+- `/job/create`: Create job form
+- `/job/create`: Store job
+- `/job/{id}`: Show job
+- `/job/{id}/delete`: Delete job
+- `/job/{id}/comment`: Add comment
+- `/job/{id}/apply`: Apply to job
+- `/job/{id}/candidates`: List candidates
+- `/job/{id}/candidate/{jobseeker}`: Show candidate
+- `/jobs/manage`: Manage jobs
+
+```php
+Router::get('/job/create', [JobsController::class, 'create']);
+Router::post('/job/create', [JobsController::class, 'store']);
+Router::get('/job/{id}', [JobsController::class, 'show']);
+Router::get('/job/{id}/delete', [JobsController::class, 'delete']);
+Router::post('/job/{id}/comment', [CommentsController::class, 'store']);
+Router::get('/job/{id}/apply', [JobsController::class, 'apply']);
+Router::get('/job/{id}/candidates', [JobsController::class, 'candidates']);
+Router::get('/job/{id}/candidate/{jobseeker}', [JobsController::class, 'candidate']);
+Router::get('/jobs/manage', [JobsController::class, 'manage']);
+```
+
+### Dispatch Request
+```php
+$request = Request::getInstance($_REQUEST);
+$requestUrl = explode('?', $_SERVER['REQUEST_URI'])[0];
+Router::dispatch($requestUrl, $_SERVER['REQUEST_METHOD']);
+```
+
+### Additional Files
+- `require_once __DIR__.'/../Support/autoload.php'`
+- `require_once __DIR__.'/auth.php'`
+
+### Example Usage
+
+```php
+require_once __DIR__.'/../Support/autoload.php';
+require_once __DIR__.'/auth.php';
+
+use Controllers\CommentsController;
+use Support\Router;
+use Controllers\UsersController;
+use Controllers\JobsController;
+use Support\Request;
+
+Router::get('/users', [UsersController::class, 'index']);
+Router::view('/', 'home');
+Router::view('/dashboard', 'dashboard');
+Router::view('/team', 'team');
+Router::view('/home', 'home');
+Router::view('/status', '200');
+
+Router::get('/job/create', [JobsController::class, 'create']);
+Router::post('/job/create', [JobsController::class, 'store']);
+Router::get('/job/{id}', [JobsController::class, 'show']);
+Router::get('/job/{id}/delete', [JobsController::class, 'delete']);
+Router::post('/job/{id}/comment', [CommentsController::class, 'store']);
+Router::get('/job/{id}/apply', [JobsController::class, 'apply']);
+Router::get('/job/{id}/candidates', [JobsController::class, 'candidates']);
+Router::get('/job/{id}/candidate/{jobseeker}', [JobsController::class, 'candidate']);
+Router::get('/jobs/manage', [JobsController::class, 'manage']);
+
+$request = Request::getInstance($_REQUEST);
+$requestUrl = explode('?', $_SERVER['REQUEST_URI'])[0];
+Router::dispatch($requestUrl, $_SERVER['REQUEST_METHOD']);
+```
+
+### Conclusion
+Defines routes for user and job management, dispatching requests to appropriate controllers and views.

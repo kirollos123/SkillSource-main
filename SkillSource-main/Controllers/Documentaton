@@ -1,0 +1,50 @@
+1. CommentsController.php
+   Purpose: Manages operations related to comments on the platform.
+
+Functions:
+
+index(): Lists all comments.
+view($id): Displays details of a specific comment identified by its ID.
+add(): Adds a new comment to the system.
+edit($id): Edits an existing comment specified by its ID.
+delete($id): Deletes a comment identified by its ID.
+Usage:
+
+Use index() to fetch and display all comments.
+Use view($id) to fetch details of a particular comment.
+Use add() to create and store a new comment.
+Use edit($id) to update details of an existing comment.
+Use delete($id) to remove a comment from the system. 2. JobsController.php
+Purpose: Handles operations related to job listings.
+
+Functions:
+
+index(): Lists all job listings.
+view($id): Displays details of a specific job listing by its ID.
+add(): Adds a new job listing to the system.
+edit($id): Edits an existing job listing specified by its ID.
+delete($id): Deletes a job listing identified by its ID.
+Usage:
+
+Use index() to fetch and display all job listings.
+Use view($id) to fetch details of a particular job listing.
+Use add() to create and store a new job listing.
+Use edit($id) to update details of an existing job listing.
+Use delete($id) to remove a job listing from the system. 3. UsersController.php
+Purpose: Manages user-related operations on the platform.
+
+Functions:
+
+index(): Lists all users.
+view($id): Displays details of a specific user by its ID.
+add(): Registers a new user to the system.
+edit($id): Edits an existing user specified by its ID.
+delete($id): Deletes a user identified by its ID.
+Usage:
+
+Use index() to fetch and display all users.
+Use view($id) to fetch details of a particular user.
+Use add() to register and store a new user.
+Use edit($id) to update details of an existing user.
+Use delete($id) to remove a user from the system.
+

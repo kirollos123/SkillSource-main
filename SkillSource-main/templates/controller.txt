@@ -1,0 +1,22 @@
+<?php
+namespace Controllers;
+class {{modelName}}
+{
+    public function index() {
+        // type your logic here and don't forget to return the value
+    }
+
+    public function create() {
+        // type your logic here and don't forget to return the value
+    }
+
+    public function update($id) {
+        // type your logic here and don't forget to return the value
+    }
+    public function delete($id) {
+        // type your logic here and don't forget to return the value
+    }
+
+}
+
+?>

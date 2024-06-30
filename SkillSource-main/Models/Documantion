@@ -1,0 +1,142 @@
+Sure, I'll create a brief documentation for the files you uploaded. This documentation will cover the purpose of each file and provide a basic overview.
+
+---
+
+# Project Documentation
+
+## Table of Contents
+
+1. [Introduction](#introduction)
+2. [Files Overview](#files-overview)
+   - [Application.php](#applicationphp)
+   - [Comment.php](#commentphp)
+   - [Job.php](#jobphp)
+   - [Skill.php](#skillphp)
+    - [user.php](#userphp)
+3. [Installation](#installation)
+4. [Usage](#usage)
+5. [Contact](#contact)
+
+## Introduction
+
+This documentation provides a brief overview of the key components in the project, including their purposes and basic usage instructions.
+
+## Files Overview
+
+### Application.php
+
+**Purpose:**  
+This file handles the core logic and operations of the application. It may include functionalities such as initializing configurations, managing application flow, and coordinating interactions between different components.
+
+**Key Functions:**
+- Initialization of the application
+- Handling requests and responses
+- Managing application configurations
+
+### Comment.php
+
+**Purpose:**  
+This file is responsible for managing comments within the application. It includes functionalities for creating, reading, updating, and deleting comments.
+
+**Key Functions:**
+- `createComment()`: Adds a new comment
+- `getComments()`: Retrieves a list of comments
+- `updateComment()`: Updates an existing comment
+- `deleteComment()`: Deletes a comment
+
+### Job.php
+
+**Purpose:**  
+This file manages job-related functionalities. It handles job postings, job applications, and other related operations.
+
+**Key Functions:**
+- `createJob()`: Adds a new job posting
+- `getJobs()`: Retrieves a list of job postings
+- `updateJob()`: Updates an existing job posting
+- `deleteJob()`: Deletes a job posting
+
+### Skill.php
+
+**Purpose:**  
+This file deals with skill management within the application. It includes functionalities for adding, updating, and retrieving skills.
+
+**Key Functions:**
+- `addSkill()`: Adds a new skill
+- `getSkills()`: Retrieves a list of skills
+- `updateSkill()`: Updates an existing skill
+- `deleteSkill()`: Deletes a skill
+
+## User Model Documentation
+
+### Namespace
+`Models`
+
+### Inheritance
+- Extends: `Support\Model`
+- Implements: `Support\Contracts\ModelInterface`
+
+### Properties
+- `protected static $fillable` (array): List of attributes that can be mass-assigned.
+  - `name` (string): The user's name.
+  - `email` (string): The user's email address.
+  - `password` (string): The user's password (hashed).
+  - `phone` (string): The user's phone number.
+  - `account_type` (string): The type of user account.
+
+### Example Usage
+
+```php
+use Models\User;
+
+// Creating a new user instance
+$user = new User([
+    'name' => 'John Doe',
+    'email' => 'john.doe@example.com',
+    'password' => password_hash('password123', PASSWORD_BCRYPT),
+    'phone' => '123-456-7890',
+    'account_type' => 'standard'
+]);
+
+// Saving the user to the database
+$user->save();
+```
+
+### Notes
+- Ensure the `password` attribute is hashed before saving the user to the database.
+- The `fillable` array protects against mass-assignment vulnerabilities. Only the listed attributes can be mass-assigned.
+
+### Conclusion
+The `User` model provides a structured way to interact with user data, leveraging the capabilities of `Support\Model` and ensuring compliance with `Support\Contracts\ModelInterface`.
+
+## Installation
+
+To set up the project, follow these steps:
+
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/username/project-repo.git
+   ```
+2. Navigate to the project directory:
+   ```sh
+   cd project-repo
+   ```
+3. Install the necessary dependencies:
+   ```sh
+   composer install
+   ```
+
+## Usage
+
+1. Start the development server:
+   ```sh
+   php -S localhost:8000
+   ```
+2. Open your browser and navigate to `http://localhost:8000`.
+
+## Contact
+
+For any questions or feedback, please contact us at support@projectemail.com.
+
+---
+
+This documentation provides a high-level overview and basic usage instructions for the project components. For more detailed information, please refer to the code comments and inline documentation within each file.

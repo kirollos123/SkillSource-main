@@ -1,0 +1,40 @@
+Here's a concise documentation for the provided PHP script:
+
+## Documentation for `ConsoleModel` Class
+
+### Description
+This PHP script defines a `ConsoleModel` class that extends the `Console` class from the `Support` namespace. It includes necessary dependencies and outputs the class name upon instantiation.
+
+### Usage
+The script is used to create a model that inherits from the `Console` class and prints its class name when instantiated.
+
+### Code
+```php
+<?php
+
+require_once './Support/autoload.php';
+use Support\Console;
+
+class ConsoleModel extends Console {
+    public function __construct()
+    {
+        echo static::class;
+    }
+}
+```
+
+### Key Points
+- **`require_once`**: Ensures the `autoload.php` file is included only once.
+- **`use Support\Console`**: Imports the `Console` class from the `Support` namespace.
+- **`ConsoleModel extends Console`**: `ConsoleModel` inherits all properties and methods from the `Console` class.
+- **`__construct` Method**: The constructor method outputs the name of the class using `static::class`.
+
+### Example Use Case
+Instantiate the `ConsoleModel` class to see the class name output:
+
+```php
+$model = new ConsoleModel(); // Outputs: "ConsoleModel"
+```
+
+### Error Handling
+- Ensure the `Support/autoload.php` file and `Support\Console` class exist and are correctly defined to avoid errors.
